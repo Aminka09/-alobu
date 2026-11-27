@@ -148,11 +148,17 @@ def format_report(item):
     )
 
 
-def main_loop():
-    if not RAW_COOKIE or not TG_BOT_TOKEN or not TG_CHAT_ID:
-        print("❌ Не заданы секреты RAW_COOKIE / TG_BOT_TOKEN / TG_CHAT_ID!")
-        return
-
+def check_reports():
+    # Тут только логика: зашел, проверил, отправил в Telegram, всё.
+    try:
+        response = requests.get(URL, timeout=10) # Обязательно оставь timeout!
+        # ... твоя логика парсинга ...
+        # ... отправка в Telegram ...
+        print("[OK] Проверка завершена успешно.")
+    except Exception as e:
+        print(f"[ERR] Ошибка при проверке: {e}")
+        # Тут можно отправить ошибку в Telegram, чтобы ты знал
+    
     last_id = load_last_id()
     first_run = last_id == 0
     print(f"[OK] Запуск. Последний известный ID жалобы: {last_id}")
